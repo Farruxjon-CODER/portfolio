@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="shortcut icon" href="./img/icon.png" type="image/x-icon">
+    <title>Yusupjanov Farruxjon — Portfolio</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
+
+    <style>
+        :root {
+            --accent1: #00c6ff;
+            --accent2: #0072ff;
+            --bg: #0b1220;
+            --card: #0f1724;
+            --glass: rgba(255, 255, 255, 0.06);
+            --muted: #9aa4b2;
+        }
+
+        html,
+        body {
+            height: 100%
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: linear-gradient(180deg, #071023 0%, #0b1220 100%);
+            color: #e6eef8;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            scroll-behavior: smooth;
+        }
+
+        /* ---------- NAVBAR ---------- */
+        .navbar {
+            background: transparent;
+            transition: background 300ms ease, box-shadow 300ms ease, transform 300ms ease;
+            padding: .6rem 1rem;
+            backface-visibility: hidden;
+        }
+
+        .navbar.scrolled {
+            background: linear-gradient(90deg, var(--accent2), var(--accent1));
+            box-shadow: 0 8px 30px rgba(2, 6, 23, 0.6);
+            transform: translateY(0);
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: .8rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .navbar-brand img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.9);
+            transition: color .2s;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: #ffeaa7;
+        }
+
+        /* ---------- HERO (full-screen) ---------- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 1rem;
+            gap: 1rem;
+            position: relative;
+            background: radial-gradient(1200px 600px at 10% 20%, rgba(0, 198, 255, 0.06), transparent 8%),
+                radial-gradient(1000px 500px at 90% 80%, rgba(0, 114, 255, 0.06), transparent 8%);
+        }
+
+        .hero .panel {
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            font-size: clamp(1.8rem, 3.5vw, 3rem);
+            margin: 0 0 .6rem 0;
+            letter-spacing: -0.02em;
+            line-height: 1.05;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 6px 30px rgba(0, 0, 0, 0.45);
+        }
+
+        .hero p.lead {
+            margin: 0 auto 1.4rem auto;
+            color: var(--muted);
+            font-size: 1.05rem;
+            max-width: 720px;
+        }
+
+        .typing {
+            color: #bfefff;
+            font-weight: 600;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: .8rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary-gradient {
+            background: linear-gradient(90deg, var(--accent1), var(--accent2));
+            border: none;
+            color: #021322;
+            font-weight: 700;
+            padding: .6rem 1.1rem;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(2, 198, 255, 0.12);
+        }
+
+        /* ---------- ABOUT (bg image + glass card centered) ---------- */
+        #about {
+            position: relative;
+            background: url('img/bg-about.avif') center/cover no-repeat fixed;
+            padding: 6rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 70vh;
+        }
+
+        #about::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(6, 10, 20, 0.65), rgba(6, 10, 20, 0.65));
+            z-index: 0;
+        }
+
+        .about-card {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            width: 100%;
+            padding: 2rem;
+            border-radius: 14px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.02));
+            box-shadow: 0 10px 35px rgba(2, 6, 23, 0.6);
+            color: #e8eefb;
+        }
+
+        .about-card h2 {
+            color: #fff;
+            margin-bottom: .6rem;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            align-items: start;
+        }
+
+        @media (max-width:900px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                text-align: center
+            }
+        }
+
+        .profile-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: .8rem;
+        }
+
+        .profile-box img {
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.06);
+        }
+
+        /* ---------- SKILLS ---------- */
+        #skills {
+            padding: 5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.2rem;
+            text-align: center;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.1rem;
+            width: 100%;
+            max-width: 920px;
+        }
+
+        @media (max-width:720px) {
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .skill {
+            padding: 1rem;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.02));
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(2, 6, 23, 0.45);
+        }
+
+        .skill h5 {
+            margin: 0 0 .5rem 0;
+            color: #eaf6ff;
+        }
+
+        .progress {
+            height: 16px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.06);
+            overflow: hidden;
+        }
+
+        .progress>.bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent1), var(--accent2));
+            box-shadow: 0 6px 18px rgba(0, 198, 255, 0.12);
+            transition: width 1200ms cubic-bezier(.2, .9, .2, 1);
+        }
+
+        .skill .percent {
+            float: right;
+            font-weight: 700;
+            color: #cfeeff;
+            font-size: 0.95rem;
+        }
+
+        /* ---------- PORTFOLIO ---------- */
+        #portfolio {
+            padding: 5rem 1rem;
+        }
+
+        .card-portfolio {
+            border-radius: 12px;
+            overflow: hidden;
+            border: none;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.02));
+            transition: transform .35s ease, box-shadow .35s ease;
+        }
+
+        .card-portfolio img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            transition: transform .35s ease;
+        }
+
+        .card-portfolio:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 18px 40px rgba(2, 6, 23, 0.45);
+        }
+
+        .card-portfolio:hover img {
+            transform: scale(1.06);
+        }
+
+        /* ---------- CONTACT ---------- */
+        #contact {
+            padding: 4rem 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #contact .contact-card {
+            width: 100%;
+            max-width: 720px;
+            padding: 1.6rem;
+            border-radius: 12px;
+            background: linear-gradient(180deg, #071022 0%, #0b1220 100%);
+            box-shadow: 0 8px 30px rgba(2, 6, 23, 0.6);
+        }
+
+        /* ---------- FOOTER ---------- */
+        footer {
+            padding: 2rem 1rem;
+            text-align: center;
+            color: #9fbfdc;
+            background: linear-gradient(90deg, #020617, #071022);
+        }
+
+        /* small helpers */
+        .muted {
+            color: var(--muted);
+        }
+
+        .mb-sm {
+            margin-bottom: .6rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#hero">
+                <img src="img/profile.png" alt="Farruxjon">
+                Farruxjon
+            </a>
+            <button class="navbar-toggler btn btn-outline-light" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto gap-2">
+                    <li class="nav-item"><a class="nav-link" href="#hero">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header id="hero" class="hero">
+        <div class="panel">
+            <h1>Yusupjanov <span style="color:var(--accent1)">Farruxjon</span></h1>
+            <p class="lead muted">Frontend Developer — Game Development enthusiast</p>
+            <p class="muted mb-3">Men yarataman: <span class="typing"></span></p>
+
+            <div class="hero-cta">
+                <a class="btn btn-primary-gradient" href="#portfolio">Ko‘rish</a>
+                <a class="btn btn-outline-light" href="#contact">Aloqa</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ABOUT -->
+    <section id="about" aria-labelledby="about-heading">
+        <div class="about-card">
+            <div class="about-grid">
+                <div class="profile-box">
+                    <img src="img/profile.png" alt="Farruxjon profile">
+                    <div class="muted">Frontend Developer</div>
+                </div>
+                <div>
+                    <h2 id="about-heading">About ME</h2>
+                    <p>Men dasturlash va kompyuterda o‘yinlar yaratishga qiziqaman. O‘zimni har doim yangi
+                        bilimlarni izlashga intiluvchi, maqsad sari harakat qiluvchi inson deb bilaman. Game
+                        Developer faoliyati meni juda qiziqtiradi, kelajakda shu sohada professional bo‘lishni
+                        istayman. O‘z ustimda ishlash va yangi loyihalarga hissa qo‘shishdan xursandman.</p>
+
+                    <h5 class="mt-3">Tajriba</h5>
+                    <ul class="muted">
+                        <li><strong>Coursera (2024 - 2025)</strong> — Talaba. Professional kurslar bo‘yicha litsenziya.
+                        </li>
+                        <li><strong>IT-Shaharcha (2024 - 2025)</strong> — Talaba. Kompyuter savodxonligi va dasturlash
+                            asoslari sertifikatlari.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" aria-labelledby="skills-heading">
+        <h2 id="skills-heading">Skills</h2>
+        <p class="muted mb-sm">Quyidagi ko‘nikmalarim foydalanuvchi interfeysi va o‘yinlar uchun zarur</p>
+
+        <div class="skills-grid">
+            <div class="skill">
+                <h5>HTML <span class="percent">90%</span></h5>
+                <div class="progress">
+                    <div class="bar" data-percent="90"></div>
+                </div>
+            </div>
+            <div class="skill">
+                <h5>CSS <span class="percent">80%</span></h5>
+                <div class="progress">
+                    <div class="bar" data-percent="80"></div>
+                </div>
+            </div>
+            <div class="skill">
+                <h5>JavaScript <span class="percent">50%</span></h5>
+                <div class="progress">
+                    <div class="bar" data-percent="50"></div>
+                </div>
+            </div>
+            <div class="skill">
+                <h5>Bootstrap v5.2 <span class="percent">60%</span></h5>
+                <div class="progress">
+                    <div class="bar" data-percent="60"></div>
+                </div>
+            </div>
+            <div class="skill">
+                <h5>MS Word <span class="percent">90%</span></h5>
+                <div class="progress">
+                    <div class="bar" data-percent="90"></div>
+                </div>
+            </div>
+            <div class="skill">
+                <h5>MS Excel <span class="percent">70%</span></h5>
+                <div class="progress">
+                    <div class="bar" data-percent="70"></div>
+                </div>
+            </div>
+            <div class="skill">
+                <h5>MS PowerPoint <span class="percent">85%</span></h5>
+                <div class="progress">
+                    <div class="bar" data-percent="85"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="container">
+        <h2 class="text-center mb-4">Portfolio</h2>
+
+        <div class="row g-4">
+            <!-- Card 1 -->
+            <div class="col-md-4">
+                <div
+                    class="card card-portfolio card-portfolio card-portfolio card-portfolio card-portfolio card-portfolio card-portfolio card-portfolio card-portfolio card-portfolio card-portfolio card-portfolio card-portfolio card-portfolio card-portfolio card-portfolio card-portfolio card-portfolio card-portfolio card-portfolio">
+                    <div class="card-portfolio">
+                        <img src="img/sportova+.png" alt="Sportova+" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title text-light">Sportova+</h5>
+                            <p class="card-text muted">Sport va sog'lom turmush tarzi uchun yaratilgan platforma.</p>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-outline-light btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#modal1">View</button>
+                                <a href="#" class="btn btn-primary btn-sm">Visit</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-md-4">
+                <div class="card card-portfolio">
+                    <img src="img/web-gaming-platform.png" alt="Web Gaming Platform" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title text-light">Web Gaming Platform</h5>
+                        <p class="card-text muted">O'ynash uchun onlayn platforma.</p>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-outline-light btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#modal2">View</button>
+                            <a href="#" class="btn btn-primary btn-sm">Visit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-md-4">
+                <div class="card card-portfolio">
+                    <img src="img/smart-watch.png" alt="Smart Watch" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title text-light">Smart Watch</h5>
+                        <p class="card-text muted">Aqlli soat loyihasi.</p>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-outline-light btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#modal3">View</button>
+                            <a href="#" class="btn btn-primary btn-sm">Visit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Modals -->
+    <div class="modal fade" id="modal1" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content bg-dark text-light">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title">Sportova+</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="img/project1.jpg" alt="" class="img-fluid mb-3">
+                    <p>Sportova+ — bu sportga oid yangiliklar, tahlillar, turnirlar jadvali va sportchilar haqida
+                        ma'lumotlarni taqdim etuvchi zamonaviy veb platforma. Sayt sport ishqibozlariga eng so‘nggi
+                        yangiliklarni, jonli natijalar va video qaydlarni tezkor va qulay tarzda yetkazib beradi.
+
+                        Asosiy xususiyatlari:
+
+                        Turli sport turlari bo‘yicha yangiliklar (futbol, basketbol, tennis va boshqalar)
+
+                        Musobaqalar va ligalar jadvali, natijalar
+
+                        Sportchilar va jamoalar profillari
+
+                        Interaktiv statistika va tahlillar
+
+                        Foydalanuvchilar uchun sharhlar va fikr almashish imkoniyati
+
+                        Mobil qurilmalarga moslashgan dizayn
+
+                        Sportova+ sport olamidagi eng yangi va eng muhim ma’lumotlarni jamlagan, sport ixlosmandlari
+                        uchun o‘ziga xos axborot markazi hisoblanadi.</p>
+                    <a href="https://github.com/Farruxjon-CODER/Sportova-.git" target="_blank"
+                        rel="noopener noreferrer">click to view</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal2" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content bg-dark text-light">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title">Web Gaming Platform</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="img/project2.jpg" alt="" class="img-fluid mb-3">
+                    <p>Web Gaming Platform — bu internet orqali o‘ynaladigan turli xil o‘yinlarni birlashtirgan onlayn
+                        platforma. Foydalanuvchilar brauzer orqali ro‘yxatdan o‘tib, turli janrdagi (action, puzzle,
+                        multiplayer, strategiya va boshqalar) o‘yinlarni darhol boshlashlari mumkin.
+
+                        Asosiy xususiyatlari:
+
+                        Ko‘p turdagi o‘yinlar (yagona o‘yinchi, ko‘p o‘yinchi)
+
+                        Foydalanuvchi profiling va do‘stlar ro‘yxati
+
+                        Reytinglar, ballar va yutuqlar tizimi
+
+                        O‘yin ichidagi chat va interaktiv imkoniyatlar
+
+                        Mobil va desktop uchun moslashuvchan interfeys
+
+                        Tezkor yuklanish va o‘ynash uchun optimallashtirilgan texnologiyalar (HTML5, WebGL, WebSocket va
+                        boshqalar)
+
+                        O‘yinlarni doimiy yangilab borish va yangi kontent qo‘shish imkoniyati
+
+                        Web Gaming Platform — bu o‘yinsevarlarga qulay, tez va do‘stlar bilan birga yoki yolg‘iz onlayn
+                        o‘yinlar o‘ynash imkoniyatini beruvchi keng ko‘lamli veb-servisdir.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal3" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content bg-dark text-light">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title">Smart Watch</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="img/project3.jpg" alt="" class="img-fluid mb-3">
+                    <p>Aqlli Soat (Smart Clock) Web Ilovasi
+                        Ushbu loyiha foydalanuvchilarga real vaqt soatini ko‘rsatish, hozirgi joylashuv ob-havosini
+                        olish va belgilangan vaqtda eslatma qo‘yish imkonini beruvchi oddiy va zamonaviy veb-ilovadir.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTACT -->
+    <section id="contact" class="my-5">
+        <div class="contact-card mx-3">
+            <h3 class="text-center mb-3">Aloqa</h3>
+            <form id="contactForm" novalidate>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Ism</label>
+                        <input required type="text" class="form-control" id="name" placeholder="Ismingiz">
+                        <div class="invalid-feedback">Iltimos ismingizni kiriting.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Email</label>
+                        <input required type="email" class="form-control" id="email" placeholder="Email">
+                        <div class="invalid-feedback">To'g'ri email kiriting.</div>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Xabar</label>
+                        <textarea required id="message" class="form-control" rows="5"
+                            placeholder="Xabaringiz"></textarea>
+                        <div class="invalid-feedback">Xabar bo'sh bo'lishi mumkin emas.</div>
+                    </div>
+                    <div class="col-12 text-center">
+                        <button class="btn btn-outline-light px-5" type="submit">Yuborish</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3"
+            method="post">
+            <div> &copy 2025 | Yusupjanov Farruxjon</div>
+            <div class="muted"> <i class="bi bi-envelope-fill"></i> Email: yusufjonovfarrux77@email.com <br> <i
+                    class="bi bi-telephone-fill"></i>
+                <a href="tel:+998507529210">+998 50 752 92 10</a>
+            </div>
+            <div>
+                <i class="bi bi-github"></i>
+                <a href="https://github.com/Farruxjon-CODER" class="muted me-2" aria-label="GitHub"
+                    target="blank">GitHub</a>|
+                <i class="bi bi-linkedin"></i>
+                <a href="https://www.linkedin.com/in/farrux-yusupjanov" class="muted me-2" aria-label="LinkedIn"
+                    target="blank">LinkedIn</a>|
+                <i class="bi bi-telegram"></i>
+                <a href="https://t.me/xamidovc_admin" class="muted" aria-label="Telegram" target="blank">Telegram</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Page JS: typing, navbar scroll, skills observer, contact validation -->
+    <script>
+        // Navbar scroll effect
+        const navbar = document.querySelector('.navbar');
+        function onScrollNav() {
+            if (window.scrollY > 20) navbar.classList.add('scrolled');
+            else navbar.classList.remove('scrolled');
+        }
+        document.addEventListener('scroll', onScrollNav, { passive: true });
+        onScrollNav();
+
+        // Typing effect (words loop)
+        const words = ['responsive websites', 'game prototypes', 'clean code'];
+        let wi = 0, ci = 0, forward = true;
+        const el = document.querySelector('.typing');
+        function type() {
+            if (!el) return;
+            const word = words[wi];
+            if (forward) {
+                ci++;
+                el.textContent = word.slice(0, ci);
+                if (ci === word.length) { forward = false; setTimeout(type, 1000); return; }
+            } else {
+                ci--;
+                el.textContent = word.slice(0, ci);
+                if (ci === 0) { forward = true; wi = (wi + 1) % words.length; setTimeout(type, 300); return; }
+            }
+            setTimeout(type, 80);
+        }
+        type();
+
+        // Skills: IntersectionObserver to animate when in view, reset when out
+        const skillBars = document.querySelectorAll('.bar');
+        const skillsSection = document.querySelector('#skills');
+        const skillsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    skillBars.forEach(b => {
+                        const p = +b.getAttribute('data-percent');
+                        // force reflow for transition
+                        requestAnimationFrame(() => { b.style.width = p + '%'; });
+                    });
+                } else {
+                    // reset to 0 when out of view (smooth)
+                    skillBars.forEach(b => { b.style.width = '0%'; });
+                }
+            });
+        }, { threshold: 0.45 });
+        if (skillsSection) skillsObserver.observe(skillsSection);
+
+        // Smooth modal focus: optional small enhancement
+        const modals = document.querySelectorAll('.modal');
+        modals.forEach(m => m.addEventListener('shown.bs.modal', e => {
+            const img = m.querySelector('img'); if (img) img.focus();
+        }));
+
+        // Contact form validation + simple success message
+        const form = document.querySelector('#contactForm');
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (!form.checkValidity()) {
+                form.classList.add('was-validated');
+                return;
+            }
+            // fake submit — show success, then reset
+            const btn = form.querySelector('button[type="submit"]');
+            btn.disabled = true; btn.textContent = 'Yuborilmoqda...';
+            setTimeout(() => {
+                btn.disabled = false; btn.textContent = 'Yuborish';
+                form.reset(); form.classList.remove('was-validated');
+                // brief success toast using bootstrap toast optionally
+                alert('Xabaringiz qabul qilindi — rahmat!');
+            }, 900);
+        });
+
+        // Accessibility: enable keyboard focus outline for keyboard users
+        (function () {
+            const handleFirstTab = (e) => {
+                if (e.key === 'Tab') {
+                    document.body.classList.add('user-is-tabbing');
+                    window.removeEventListener('keydown', handleFirstTab);
+                }
+            };
+            window.addEventListener('keydown', handleFirstTab);
+        })();
+    </script>
+</body>
+
+</html>
